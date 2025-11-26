@@ -7,7 +7,6 @@ const usePokemon = () => {
     const fetchPokemon = async () => {
       try {
         const response = await PokemonApi.getPokemonList();
-        console.log(response);
       } catch (err) {
         console.log(err);
       } finally {
