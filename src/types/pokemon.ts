@@ -5,14 +5,10 @@ type Pokemon = {
   types: string[];
 };
 
-// API response type (add this)
-type PokemonDetailApiResponse = {
-  id: number;
+// Type for items in the Pokemon list API response
+type PokemonListItem = {
   name: string;
-  sprites: {
-    front_default: string | null;
-  };
-  types: Array<PokemonType>;
+  url: string;
 };
 
 type PokemonType = {
@@ -21,6 +17,16 @@ type PokemonType = {
     name: string;
     url: string;
   };
+};
+
+// API response type (add this)
+type PokemonDetailApiResponse = {
+  id: number;
+  name: string;
+  sprites: {
+    front_default: string | null;
+  };
+  types: Array<PokemonType>;
 };
 
 /*
@@ -39,11 +45,12 @@ type PokemonListResponse = {
   count: number;
   next: string;
   previous: string;
-  results: Pokemon[];
+  results: PokemonListItem[];
 };
 
 export type {
   Pokemon,
+  PokemonListItem,
   PokemonType,
   PokemonListResponse,
   PokemonDetailApiResponse,

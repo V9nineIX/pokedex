@@ -2,6 +2,7 @@ import { fetchData, postData, patchData, putData, deleteData } from "./service";
 import { LIMIT_PER_PAGE } from "../app/constant";
 import {
   Pokemon,
+  PokemonListItem,
   PokemonListResponse,
   PokemonDetailApiResponse,
   PokemonType,
@@ -12,12 +13,15 @@ const getPokemonList = async (): Promise<Pokemon[]> => {
     "/pokemon?limit=" + LIMIT_PER_PAGE + "&offset=0"
   );
   // get detail
-  const detailedPromises = response.results.map(async (pokemon: any) => {
-    const detailResponse = await fetch(pokemon.url);
+  const detailedPromises = response.results.map(
+    async (pokemon: PokemonListItem) => {
+      const detailResponse = await fetch(pokemon.url);
 
-    if (!detailResponse.ok) throw new Error(`Failed to fetch ${pokemon.name}`);
-    return detailResponse.json();
-  });
+      if (!detailResponse.ok)
+        throw new Error(`Failed to fetch ${pokemon.name}`);
+      return detailResponse.json();
+    }
+  );
   // wait for all detailed responses
   const detailedResponses = await Promise.all(detailedPromises);
 
