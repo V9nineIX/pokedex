@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 const getBaseURL = () => {
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  return process.env.NEXT_PUBLIC_API_URL || "https://pokeapi.co/api/v2";
 };
 
 // const getToken = () => "1234567890";
