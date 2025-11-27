@@ -81,6 +81,13 @@ const usePokemon = () => {
     page: number = 1
   ) => {
     try {
+      //clear search term
+      if (pokemonState.searchTerm) {
+        dispatch(setPokemonField({ key: "searchTerm", value: "" }));
+        dispatch(setPokemonField({ key: "searchQuery", value: "" }));
+        dispatch(setPokemonField({ key: "isSearchActive", value: false }));
+      }
+
       dispatch(setPokemonField({ key: "isLoadingPokemonList", value: true }));
       const response = await fetchPokemonListByTypes(types, page);
 
