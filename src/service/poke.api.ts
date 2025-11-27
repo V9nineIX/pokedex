@@ -122,7 +122,9 @@ export const fetchAllPokemon = async (
   offset: number = 0
 ): Promise<PokemonListResponse> => {
   // Fetch a large list to handle search client-side for better UX
-  const response = await fetch(`${BASE_URL}/pokemon?limit=${LIMIT_PER_PAGE}`);
+  const response = await fetch(
+    `${BASE_URL}/pokemon?limit=${LIMIT_PER_PAGE}&offset=${offset}`
+  );
   const data: PokemonListResponse = await response.json();
   return data;
 };
