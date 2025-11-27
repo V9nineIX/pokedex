@@ -12,7 +12,6 @@ interface PokemonState {
   totalCount: number;
   isFilterOpen: boolean;
   selectedTypes: string[];
-  next: string | null;
   pokemonDetail: PokemonDetail | null;
   isLoadingPokemonDetail: boolean;
 }
@@ -27,7 +26,6 @@ const initialState: PokemonState = {
   totalCount: 0,
   selectedTypes: [],
   isFilterOpen: true,
-  next: null,
   pokemonDetail: null,
   isLoadingPokemonDetail: true,
 };
@@ -42,15 +40,13 @@ const pokemonSlice = createSlice({
         pokemonList: PokemonDetail[];
         currentPage: number;
         totalCount: number;
-        next: string | null;
       }>
     ) => {
-      const { pokemonList, currentPage, totalCount, next } = action.payload;
+      const { pokemonList, currentPage, totalCount } = action.payload;
       state.pokemonList = pokemonList;
       state.isLoadingPokemonList = false;
       state.currentPage = currentPage;
       state.totalCount = totalCount;
-      state.next = next;
     },
     setPokemonField: (
       state,

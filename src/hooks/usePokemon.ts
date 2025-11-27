@@ -22,7 +22,6 @@ const usePokemon = () => {
           pokemonList: response.pokemonDetailList,
           currentPage: page,
           totalCount: response.count,
-          next: response.next,
         })
       );
     } catch (err) {
@@ -95,7 +94,6 @@ const usePokemon = () => {
           pokemonList: response.pokemonDetailList,
           currentPage: page,
           totalCount: response.count,
-          next: response.next,
         })
       );
     } catch (err) {
@@ -144,7 +142,6 @@ const usePokemon = () => {
             pokemonList: [pokemonDetail],
             currentPage: 1,
             totalCount: 1,
-            next: null,
           })
         );
       } else {
@@ -154,7 +151,6 @@ const usePokemon = () => {
             pokemonList: [],
             currentPage: 1,
             totalCount: 0,
-            next: null,
           })
         );
       }
