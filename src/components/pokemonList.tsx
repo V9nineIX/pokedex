@@ -15,14 +15,14 @@ const PokemonList = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-24">
             {pokemonList && pokemonList.length > 0 && pokemonList.map((pokemon: any) => (
               <PokemonCard key={pokemon.id} pokemon={pokemon} onClick={() => { }} />
             ))}
           </div>
           {/* pagination */}
           {totalPages > 1 && (
-            <div className="mt-8 flex flex-col items-center gap-4 text-black">
+            <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 text-black py-4 bg-gray-100 z-50 shadow-lg">
               <ReactPaginate
                 pageCount={totalPages}
                 pageRangeDisplayed={3}

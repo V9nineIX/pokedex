@@ -37,8 +37,6 @@ const getPokemonList = async (): Promise<Pokemon[]> => {
     }
   );
 
-  console.log("pokemonList", pokemonList);
-
   return pokemonList;
 };
 
