@@ -22,7 +22,7 @@ const PokemonList = () => {
           </div>
           {/* pagination */}
           {totalPages > 1 && (
-            <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 text-black py-4 bg-gray-100 z-50 shadow-lg">
+            <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 text-black py-4 bg-gray-100 z-50 shadow-lg border-t border-gray-200">
               <ReactPaginate
                 pageCount={totalPages}
                 pageRangeDisplayed={3}
