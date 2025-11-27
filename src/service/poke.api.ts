@@ -9,10 +9,10 @@ import {
 import { LIMIT_PER_PAGE } from "@/app/constant";
 const BASE_URL = "https://pokeapi.co/api/v2";
 
-export const fetchPokemonList = async (): Promise<PokemonDetail[]> => {
-  const pokemonList: PokemonListResult[] = await fetchAllPokemon();
+export const fetchPokemonList = async (): Promise<PokemonListResponse> => {
+  const pokemonList: PokemonListResponse = await fetchAllPokemon();
   //TODO: get
-  const detailedPromises = pokemonList.map(
+  const detailedPromises = pokemonList.results.map(
     async (pokemon: PokemonListResult) => {
       const detail = await fetchPokemonDetails(pokemon.url);
       return detail;
@@ -32,16 +32,18 @@ export const fetchPokemonList = async (): Promise<PokemonDetail[]> => {
     }
   );
 
-  return pokemonDetailList;
+  pokemonList.pokemonDetailList = pokemonDetailList;
+
+  return pokemonList;
 };
 
-export const fetchAllPokemon = async (): Promise<PokemonListResult[]> => {
+export const fetchAllPokemon = async (): Promise<PokemonListResponse> => {
   // Fetch a large list to handle search client-side for better UX
   const response = await fetch(
     `${BASE_URL}/pokemon?limit=${LIMIT_PER_PAGE}&offset=0`
   );
   const data: PokemonListResponse = await response.json();
-  return data.results;
+  return data;
 };
 
 export const fetchPokemonDetails = async (

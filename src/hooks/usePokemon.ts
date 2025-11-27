@@ -12,10 +12,15 @@ const usePokemon = () => {
   );
   const fetchPokemon = async () => {
     try {
-      // const response = await PokemonApi.getPokemonList();
       dispatch(setPokemonField({ key: "isLoadingPokemonList", value: true }));
       const response = await fetchPokemonList();
-      dispatch(setPokemonList({ pokemonList: response, currentPage: 1 }));
+      dispatch(
+        setPokemonList({
+          pokemonList: response.pokemonDetailList,
+          currentPage: 1,
+          totalCount: response.count,
+        })
+      );
     } catch (err) {
       console.log(err);
       dispatch(setPokemonField({ key: "isLoadingPokemonList", value: false }));

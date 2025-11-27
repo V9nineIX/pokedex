@@ -7,7 +7,8 @@ export interface PokemonListResponse {
   count: number;
   next: string | null;
   previous: string | null;
-  results: PokemonListResult[];
+  results: PokemonListResult[]; // list of pokemon
+  pokemonDetailList: PokemonDetail[]; // list of pokemon details
 }
 
 export interface PokemonType {

@@ -7,6 +7,7 @@ interface PokemonState {
   currentPage: number;
   itemsPerPage: number;
   searchQuery: string;
+  totalCount: number;
 }
 
 const initialState: PokemonState = {
@@ -15,6 +16,7 @@ const initialState: PokemonState = {
   currentPage: 1,
   itemsPerPage: 20,
   searchQuery: "",
+  totalCount: 0,
 };
 
 const pokemonSlice = createSlice({
@@ -26,12 +28,14 @@ const pokemonSlice = createSlice({
       action: PayloadAction<{
         pokemonList: PokemonDetail[];
         currentPage: number;
+        totalCount: number;
       }>
     ) => {
-      const { pokemonList, currentPage } = action.payload;
+      const { pokemonList, currentPage, totalCount } = action.payload;
       state.pokemonList = pokemonList;
       state.isLoadingPokemonList = false;
       state.currentPage = currentPage;
+      state.totalCount = totalCount;
     },
     setPokemonField: (
       state,
