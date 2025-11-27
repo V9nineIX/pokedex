@@ -47,20 +47,20 @@ const Header: React.FC<HeaderProps> = ({
                   onChange={(e) => onSearchChange(e.target.value)}
                   onKeyPress={handleKeyPress}
                 />
-                {isSearchActive && (
+                {searchTerm && (
                   <button
                     onClick={onClearSearch}
                     className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors"
                     title="Clear search"
                   >
-                    <X className="h-5 w-5" />
+                    <X className="h-5 w-5 hover:cursor-pointe text-gray-600" />
                   </button>
                 )}
               </div>
 
               <button
                 onClick={onSearch}
-                className="flex items-center justify-center rounded-full bg-white px-4 py-2 text-pokedex-red shadow-sm hover:bg-gray-100 transition-colors font-semibold text-sm"
+                className="flex items-center justify-center rounded-full bg-white px-4 py-2 text-pokedex-red shadow-sm hover:bg-gray-100 transition-colors font-semibold text-sm hover:cursor-pointer"
                 title="Search"
               >
                 Search
