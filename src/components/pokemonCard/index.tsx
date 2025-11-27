@@ -1,21 +1,27 @@
-'i'
-import React, { useState, useEffect } from 'react';
-
-
+'use client';
+import React from 'react';
+import { useRouter } from 'next/navigation';
 import Badge from '../badge';
 
 interface PokemonCardProps {
   pokemon: any;
-  onClick: (pokemon: any) => void;
+  onClick?: (pokemon: any) => void;
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onClick }) => {
+  const router = useRouter();
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick(pokemon);
+    }
+    router.push(`/detail/${pokemon.id}`);
+  };
 
   return (
     <div
       className="group relative flex flex-col items-center rounded-xl bg-pokedex-bg shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer overflow-hidden border border-gray-100"
-    // onClick={() => onClick(pokemon)}
+      onClick={handleClick}
     >
       <div className="absolute right-2 top-2 text-xs font-medium text-gray-400">
         {/* {formatPokemonId(id)} */}

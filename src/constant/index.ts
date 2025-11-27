@@ -42,3 +42,12 @@ export const TEXT_COLORS: Record<string, string> = {
   electric: "text-type-electric",
   dragon: "text-type-dragon",
 };
+
+export const STAT_LABELS: Record<string, string> = {
+  hp: "HP",
+  attack: "ATK",
+  defense: "DEF",
+  "special-attack": "SATK",
+  "special-defense": "SDEF",
+  speed: "SPD",
+};

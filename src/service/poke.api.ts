@@ -4,6 +4,7 @@ import {
   PokemonSpecies,
   PokemonListResult,
   PokemonDetailApiResponse,
+  EvolutionChainResponse,
 } from "@/types";
 
 import { LIMIT_PER_PAGE } from "@/constant";
@@ -134,11 +135,40 @@ export const fetchPokemonDetails = async (
   return response.json();
 };
 
-export const fetchPokemonDetailsById = async (
-  id: number
-): Promise<PokemonDetailApiResponse> => {
-  const response = await fetch(`${BASE_URL}/pokemon/${id}`);
+export const fetchEvolutionChain = async (
+  url: string
+): Promise<EvolutionChainResponse> => {
+  const response = await fetch(url);
   return response.json();
+};
+
+export const fetchPokemonFullDetail = async (
+  nameOrId: string | number
+): Promise<any | null> => {
+  try {
+    const response = await fetchPokemonByNameOrId(nameOrId);
+    if (!response) {
+      throw new Error("Failed to fetch Pokémon details");
+    }
+    //TODO: get species and evolution chain
+    const species = await fetchPokemonSpecies(response.id);
+    const evolutionChain = await fetchEvolutionChain(
+      species.evolution_chain.url
+    );
+    const pokemonDetail = {
+      ...response,
+      species: species,
+      photoUrl:
+        response.sprites.other?.["official-artwork"]?.front_default ??
+        response.sprites.front_default,
+      evolutionChain: evolutionChain,
+    };
+
+    return pokemonDetail;
+  } catch (error) {
+    console.error("Error fetching Pokémon:", error);
+    return null;
+  }
 };
 
 export const fetchPokemonByNameOrId = async (

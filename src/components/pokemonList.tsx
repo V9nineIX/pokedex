@@ -1,5 +1,5 @@
 'use client'
-import PokemonCard from "@/components/pokemonCard.tsx";
+import PokemonCard from "@/components/pokemonCard";
 import ReactPaginate from "react-paginate";
 import { LIMIT_PER_PAGE } from "@/constant";
 

@@ -1,1 +1,1 @@
-export * as PokemonApi from "./pokemon.api";
+export * as PokeApi from "./poke.api";

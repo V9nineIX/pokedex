@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { PokemonApi } from "@/service";
+
 import {
   fetchPokemonList,
   fetchPokemonListByTypes,

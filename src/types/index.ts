@@ -45,8 +45,9 @@ export interface PokemonDetail {
   photoUrl: string | null;
   types?: PokemonType[];
   stats?: PokemonStat[];
-
-  // sprites: {
+  species?: PokemonSpecies;
+  evolutionChain?: EvolutionChainResponse;
+  // sprites?: {
   //   other: {
   //     "official-artwork": {
   //       front_default: string;
@@ -57,7 +58,7 @@ export interface PokemonDetail {
   //   };
   //   front_default: string;
   // };
-  // abilities: PokemonAbility[];
+  abilities?: PokemonAbility[];
 }
 
 export interface PokemonSpecies {
@@ -105,6 +106,29 @@ export interface PokemonDetailApiResponse {
   };
   types: Array<PokemonType>;
   stats?: PokemonStat[];
+}
+
+export interface EvolutionDetail {
+  min_level: number;
+  trigger: {
+    name: string;
+  };
+  item: {
+    name: string;
+  } | null;
+}
+
+export interface ChainLink {
+  species: {
+    name: string;
+    url: string;
+  };
+  evolves_to: ChainLink[];
+  evolution_details: EvolutionDetail[];
+}
+
+export interface EvolutionChainResponse {
+  chain: ChainLink;
 }
 
 export enum TypeColor {
