@@ -7,17 +7,15 @@ import { setPokemonList, setPokemonField } from "@/store/slices/pokemon";
 
 const usePokemon = () => {
   const dispatch = useDispatch();
-  const { pokemonList, isLoadingPokemonList } = useSelector(
-    (state: any) => state.pokemon
-  );
-  const fetchPokemon = async () => {
+  const pokemonState = useSelector((state: any) => state.pokemon);
+  const fetchPokemon = async (page: number = 1) => {
     try {
       dispatch(setPokemonField({ key: "isLoadingPokemonList", value: true }));
-      const response = await fetchPokemonList();
+      const response = await fetchPokemonList(page);
       dispatch(
         setPokemonList({
           pokemonList: response.pokemonDetailList,
-          currentPage: 1,
+          currentPage: page,
           totalCount: response.count,
         })
       );
@@ -26,13 +24,18 @@ const usePokemon = () => {
       dispatch(setPokemonField({ key: "isLoadingPokemonList", value: false }));
     }
   };
+
+  const handlePageChange = (selectedPage: number) => {
+    fetchPokemon(selectedPage);
+  };
+
   useEffect(() => {
     fetchPokemon();
   }, []);
 
   return {
-    pokemonList,
-    isLoadingPokemonList,
+    pokemonState,
+    handlePageChange,
   };
 };
 export default usePokemon;
