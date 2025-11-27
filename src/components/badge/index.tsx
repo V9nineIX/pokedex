@@ -17,7 +17,7 @@ const Badge: React.FC<BadgeProps> = ({
   type
 }) => {
   // Base styles
-  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-full transition-all duration-200';
+  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-xl capitalize text-sm transition-all duration-200';
 
   // Size variants
   const sizeStyles = {
@@ -42,13 +42,13 @@ const Badge: React.FC<BadgeProps> = ({
     if (variant === 'type' && type) {
       const typeKey = type.toLowerCase();
       const bgColor = TYPE_COLORS[typeKey as keyof typeof TYPE_COLORS] || 'bg-gray-200';
-      return `${bgColor} text-white`;
+      return `${bgColor} text-white border border-white px-3 py-2`;
     }
     return '';
   };
 
   const typeColorClass = variant === 'type' ? getTypeColor() : variantStyles[variant];
-  const classes = `${baseStyles} ${sizeStyles[size]} ${typeColorClass} ${className}`;
+  const classes = `${baseStyles}  ${typeColorClass} ${className}`;
 
   return (
     <span className={classes}>

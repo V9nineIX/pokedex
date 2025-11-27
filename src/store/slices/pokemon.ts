@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PokemonDetail } from "@/types";
+import { LIMIT_PER_PAGE } from "@/constant";
 
 interface PokemonState {
   pokemonList: PokemonDetail[];
@@ -21,16 +22,16 @@ const initialState: PokemonState = {
   pokemonList: [],
   isLoadingPokemonList: false,
   currentPage: 1,
-  itemsPerPage: 20,
+  itemsPerPage: LIMIT_PER_PAGE,
   searchQuery: "",
   searchTerm: "",
   isSearchActive: false,
   totalCount: 0,
   selectedTypes: [],
-  isFilterOpen: false,
+  isFilterOpen: true,
   next: null,
   pokemonDetail: null,
-  isLoadingPokemonDetail: true
+  isLoadingPokemonDetail: true,
 };
 
 const pokemonSlice = createSlice({

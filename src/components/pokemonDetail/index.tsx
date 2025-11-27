@@ -9,6 +9,7 @@ import { TYPE_COLORS, TEXT_COLORS } from '@/constant';
 import StatBar from './statBar';
 import { useRouter } from 'next/navigation';
 import EvolutionNode from './evolutionNode';
+import Badge from '../badge';
 
 
 interface PokemonDetailViewProps {
@@ -70,12 +71,15 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
             </h1>
             <div className="flex flex-wrap gap-2">
               {pokemonDetail.types && pokemonDetail.types.map((t) => (
-                <span
+                <Badge
                   key={t.type.name}
-                  className="rounded-full bg-white/25 px-4 py-1.5 text-sm md:text-base font-bold text-white capitalize backdrop-blur-md border border-white/20 shadow-sm"
+                  variant="type"
+                  type={t.type.name}
+                  size="md"
+                  className="capitalize font-bold"
                 >
                   {t.type.name}
-                </span>
+                </Badge>
               ))}
             </div>
           </div>

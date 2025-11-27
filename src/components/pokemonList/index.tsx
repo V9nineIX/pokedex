@@ -16,7 +16,14 @@ const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (pa
   return (
     <div>
       {isLoadingPokemonList ? (
-        <div>Loading...</div>
+        <div className="flex flex-col items-center justify-center py-16 text-center h-screen">
+          <div className="relative w-20 h-20 mb-4">
+            <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
+          </div>
+          <div className="text-2xl font-bold text-gray-600 mb-2">Loading...</div>
+          <div className="text-gray-500">Catching Pokémon...</div>
+        </div>
       ) : (
         <>
           {isSearchActive && pokemonList.length === 0 ? (
@@ -26,11 +33,11 @@ const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (pa
             </div>
           ) : (
             <>
-              <div className="text-bold font-bold text-md text-black w-full text-right pb-4">
+              <div className="text-bold font-sm text-md text-gray-600 w-full text-right pb-4">
                 {isSearchActive ? (
-                  <>{totalCount} pokemon found for "{searchQuery}"</>
+                  <>{totalCount.toLocaleString()} pokemon found for "{searchQuery}"</>
                 ) : (
-                  <>page {currentPage} of {totalPages} | {totalCount} pokemon found</>
+                  <>page {currentPage} of {totalPages} | {totalCount.toLocaleString()} pokemon found</>
                 )}
               </div>
 
