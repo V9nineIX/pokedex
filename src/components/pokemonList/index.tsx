@@ -10,7 +10,7 @@ interface PokemonListProps {
 
 
 const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (page: number) => void, pokemonState: any }) => {
-  const { pokemonList, isLoadingPokemonList, totalCount, currentPage, isSearchActive, searchQuery } = pokemonState;
+  const { pokemonList, isLoadingPokemonList, totalCount, currentPage, isSearchActive, searchTerm } = pokemonState;
   const totalPages = Math.ceil(totalCount / LIMIT_PER_PAGE);
 
   return (
@@ -29,13 +29,13 @@ const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (pa
           {isSearchActive && pokemonList.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <div className="text-2xl font-bold text-gray-600 mb-2">No Pokémon found</div>
-              <div className="text-gray-500">No results found for "{searchQuery}"</div>
+              <div className="text-gray-500">No results found for "{searchTerm}"</div>
             </div>
           ) : (
             <>
               <div className="text-bold font-sm text-md text-gray-600 w-full text-right pb-4">
                 {isSearchActive ? (
-                  <>{totalCount.toLocaleString()} pokemon found for "{searchQuery}"</>
+                  <>{totalCount.toLocaleString()} pokemon found for "{searchTerm}"</>
                 ) : (
                   <>page {currentPage} of {totalPages} | {totalCount.toLocaleString()} pokemon found</>
                 )}

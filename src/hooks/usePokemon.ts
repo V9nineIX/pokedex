@@ -84,7 +84,6 @@ const usePokemon = () => {
       //clear search term
       if (pokemonState.searchTerm) {
         dispatch(setPokemonField({ key: "searchTerm", value: "" }));
-        dispatch(setPokemonField({ key: "searchQuery", value: "" }));
         dispatch(setPokemonField({ key: "isSearchActive", value: false }));
       }
 
@@ -121,7 +120,6 @@ const usePokemon = () => {
     try {
       dispatch(setPokemonField({ key: "isLoadingPokemonList", value: true }));
       dispatch(setPokemonField({ key: "isSearchActive", value: true }));
-      dispatch(setPokemonField({ key: "searchQuery", value: searchTerm }));
 
       // Clear type filters when searching
       dispatch(setPokemonField({ key: "selectedTypes", value: [] }));
@@ -169,7 +167,6 @@ const usePokemon = () => {
 
   const handleClearSearch = () => {
     dispatch(setPokemonField({ key: "searchTerm", value: "" }));
-    dispatch(setPokemonField({ key: "searchQuery", value: "" }));
     dispatch(setPokemonField({ key: "isSearchActive", value: false }));
     resetPokemonList();
   };

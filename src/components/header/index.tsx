@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({
                   onChange={(e) => onSearchChange(e.target.value)}
                   onKeyPress={handleKeyPress}
                 />
-                {searchTerm && (
+                {searchTerm.length > 0 && (
                   <button
                     onClick={onClearSearch}
                     className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors"

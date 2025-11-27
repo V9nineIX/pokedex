@@ -7,7 +7,6 @@ interface PokemonState {
   isLoadingPokemonList: boolean;
   currentPage: number;
   itemsPerPage: number;
-  searchQuery: string;
   searchTerm: string;
   isSearchActive: boolean;
   totalCount: number;
@@ -23,7 +22,6 @@ const initialState: PokemonState = {
   isLoadingPokemonList: false,
   currentPage: 1,
   itemsPerPage: LIMIT_PER_PAGE,
-  searchQuery: "",
   searchTerm: "",
   isSearchActive: false,
   totalCount: 0,
