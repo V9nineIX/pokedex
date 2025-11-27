@@ -8,6 +8,9 @@ interface PokemonState {
   itemsPerPage: number;
   searchQuery: string;
   totalCount: number;
+  isFilterOpen: boolean;
+  selectedTypes: string[];
+  next: string | null;
 }
 
 const initialState: PokemonState = {
@@ -17,6 +20,9 @@ const initialState: PokemonState = {
   itemsPerPage: 20,
   searchQuery: "",
   totalCount: 0,
+  selectedTypes: [],
+  isFilterOpen: false,
+  next: null,
 };
 
 const pokemonSlice = createSlice({
@@ -29,13 +35,15 @@ const pokemonSlice = createSlice({
         pokemonList: PokemonDetail[];
         currentPage: number;
         totalCount: number;
+        next: string | null;
       }>
     ) => {
-      const { pokemonList, currentPage, totalCount } = action.payload;
+      const { pokemonList, currentPage, totalCount, next } = action.payload;
       state.pokemonList = pokemonList;
       state.isLoadingPokemonList = false;
       state.currentPage = currentPage;
       state.totalCount = totalCount;
+      state.next = next;
     },
     setPokemonField: (
       state,

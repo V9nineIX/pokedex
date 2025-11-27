@@ -3,22 +3,18 @@ import { useState } from 'react';
 import PokemonList from "@/components/pokemonList";
 import TypeFilter from "@/components/header/typeFilter";
 import { Filter, X } from 'lucide-react';
+import usePokemon from '@/hooks/usePokemon';
+import { LIMIT_PER_PAGE } from '@/constant';
+
 
 export default function PokemonContainer() {
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
 
-  const handleTypeToggle = (type: string) => {
-    setSelectedTypes((prev) => [...prev, type]);
-  };
 
-  const handleClearFilters = () => {
-    setSelectedTypes([]);
-  };
+  const { pokemonState, handlePageChange, handleTypeToggle, handleClearFilters, toggleFilterDrawer } = usePokemon();
+  const { pokemonList, isLoadingPokemonList, totalCount, currentPage, isFilterOpen, selectedTypes } = pokemonState;
 
-  const toggleFilterDrawer = () => {
-    setIsFilterOpen((prev) => !prev);
-  };
+
+
 
   return (
     <div className="flex w-full flex-row gap-6">
@@ -55,7 +51,7 @@ export default function PokemonContainer() {
       </div>
 
       <div className={`transition-all duration-300 ease-in-out ${isFilterOpen ? 'w-3/4' : ' mx-auto w-[80%]'}`}>
-        <PokemonList />
+        <PokemonList handlePageChange={handlePageChange} pokemonState={pokemonState} />
       </div>
     </div>
   );

@@ -1,11 +1,15 @@
 'use client'
-import usePokemon from "@/hooks/usePokemon";
 import PokemonCard from "@/components/pokemonCard.tsx";
 import ReactPaginate from "react-paginate";
 import { LIMIT_PER_PAGE } from "@/constant";
 
-const PokemonList = () => {
-  const { pokemonState, handlePageChange } = usePokemon();
+interface PokemonListProps {
+  handlePageChange: (page: number) => void;
+  pokemonState: any;
+}
+
+
+const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (page: number) => void, pokemonState: any }) => {
   const { pokemonList, isLoadingPokemonList, totalCount, currentPage } = pokemonState;
   const totalPages = Math.ceil(totalCount / LIMIT_PER_PAGE);
 
@@ -15,6 +19,11 @@ const PokemonList = () => {
         <div>Loading...</div>
       ) : (
         <>
+
+          <div className="text-bold font-bold text-md text-black w-full text-right pb-4">
+            page {currentPage} of {totalPages} | {totalCount} pokemon found
+          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-24">
             {pokemonList && pokemonList.length > 0 && pokemonList.map((pokemon: any) => (
               <PokemonCard key={pokemon.id} pokemon={pokemon} onClick={() => { }} />
@@ -22,30 +31,38 @@ const PokemonList = () => {
           </div>
           {/* pagination */}
           {totalPages > 1 && (
-            <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 text-black py-4 bg-gray-100 z-50 shadow-lg border-t border-gray-200">
-              <ReactPaginate
-                pageCount={totalPages}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={1}
-                onPageChange={(selectedItem) => handlePageChange(selectedItem.selected + 1)}
-                forcePage={currentPage - 1}
-                breakLabel="..."
-                nextLabel="Next"
-                previousLabel="Previous"
-                containerClassName="flex justify-center gap-2 flex-wrap items-center"
-                pageClassName=""
-                pageLinkClassName="h-10 w-10 flex items-center justify-center rounded-lg font-medium shadow-sm transition-colors bg-white text-gray-700 hover:bg-gray-50 cursor-pointer"
-                activeClassName="pagination-active-page"
-                activeLinkClassName="pagination-active-page cursor-pointer rounded-lg"
-                previousClassName=""
-                previousLinkClassName="rounded-lg bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                nextClassName=""
-                nextLinkClassName="rounded-lg bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                breakClassName="px-2"
-                disabledClassName="opacity-50 cursor-not-allowed"
-                disabledLinkClassName="opacity-50 cursor-not-allowed"
-              />
-            </div>
+            <>
+
+              <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 text-black py-4 bg-gray-100 z-50 shadow-lg border-t border-gray-200">
+
+
+                <ReactPaginate
+                  pageCount={totalPages}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={1}
+                  onPageChange={(selectedItem) => handlePageChange(selectedItem.selected + 1)}
+                  forcePage={currentPage - 1}
+                  breakLabel="..."
+                  nextLabel="Next"
+                  previousLabel="Previous"
+                  containerClassName="flex justify-center gap-2 flex-wrap items-center"
+                  pageClassName=""
+                  pageLinkClassName="h-10 w-10 flex items-center justify-center rounded-lg font-medium shadow-sm transition-colors bg-white text-gray-700 hover:bg-gray-50 cursor-pointer"
+                  activeClassName="pagination-active-page"
+                  activeLinkClassName="pagination-active-page cursor-pointer rounded-lg"
+                  previousClassName=""
+                  previousLinkClassName="rounded-lg bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  nextClassName=""
+                  nextLinkClassName="rounded-lg bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  breakClassName="px-2"
+                  disabledClassName="opacity-50 cursor-not-allowed"
+                  disabledLinkClassName="opacity-50 cursor-not-allowed"
+                />
+
+              </div>
+
+
+            </>
           )}
         </>
       )}
