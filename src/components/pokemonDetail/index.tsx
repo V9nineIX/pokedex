@@ -23,67 +23,19 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
 }) => {
   const router = useRouter();
 
-  // const [details, setDetails] = useState<PokemonDetail | null>(null);
-  // const [species, setSpecies] = useState<PokemonSpecies | null>(null);
-  // const [evolution, setEvolution] = useState<EvolutionChainResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     setLoading(true);
-  //     // Keep previous data visible for a moment if switching between pokemon or just clear it?
-  //     // Clearing it avoids confusion.
-  //     setDetails(null);
-  //     setEvolution(null);
-  //     setSpecies(null);
-
-  //     try {
-  //       const id = getPokemonIdFromUrl(pokemonDetail.url);
-  //       const [detailsData, speciesData] = await Promise.all([
-  //         fetchPokemonDetails(pokemonDetail.url),
-  //         fetchPokemonSpecies(id)
-  //       ]);
-  //       setDetails(detailsData);
-  //       setSpecies(speciesData);
-
-  //       if (speciesData.evolution_chain.url) {
-  //         const evolutionData = await fetchEvolutionChain(speciesData.evolution_chain.url);
-  //         setEvolution(evolutionData);
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to load details", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   loadData();
-
-  //   // Scroll to top when switching pokemon
-  //   window.scrollTo(0, 0);
-  // }, [pokemonListResult]);
-
-  const details = pokemonDetail;
-  console.log('details', details);
 
 
-
-  if (loading || !details) {
+  if (!pokemonDetail) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-pokedex-red"></div>
-          <p className="text-gray-500 font-medium animate-pulse">Loading Pokemon Data...</p>
-        </div>
-      </div>
+      null
     )
   }
 
-  const primaryType = details.types?.[0]?.type?.name || '';
+  const primaryType = pokemonDetail.types?.[0]?.type?.name || '';
   const bgClass = TYPE_COLORS[primaryType] || 'bg-gray-500';
   const textClass = TEXT_COLORS[primaryType] || 'text-gray-500';
-  const evolutionChain = details.evolutionChain;
-  const species = details.species;
+  const evolutionChain = pokemonDetail.evolutionChain;
+  const species = pokemonDetail.species;
 
   // Get flavor text in English
   const description = species?.flavor_text_entries.find(
@@ -95,7 +47,7 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
   const EvolutionNode = ({ link }: { link: ChainLink }) => {
     const id = getPokemonIdFromUrl(link.species.url);
     const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-    const isCurrent = details.id === id;
+    const isCurrent = pokemonDetail.id === id;
 
     const handleNodeClick = () => {
       if (onSelectPokemon && !isCurrent) {
@@ -158,7 +110,7 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
           </button>
           <div className="flex items-center gap-4">
             {/* Maybe a favorite heart here later */}
-            <span className="text-2xl font-bold opacity-90">#{formatPokemonId(details.id)}</span>
+            <span className="text-2xl font-bold opacity-90">#{formatPokemonId(pokemonDetail.id)}</span>
           </div>
         </div>
 
@@ -166,10 +118,10 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white capitalize tracking-wide drop-shadow-sm mb-2">
-              {details.name}
+              {pokemonDetail.name}
             </h1>
             <div className="flex flex-wrap gap-2">
-              {details.types && details.types.map((t) => (
+              {pokemonDetail.types && pokemonDetail.types.map((t) => (
                 <span
                   key={t.type.name}
                   className="rounded-full bg-white/25 px-4 py-1.5 text-sm md:text-base font-bold text-white capitalize backdrop-blur-md border border-white/20 shadow-sm"
@@ -189,10 +141,10 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
         {/* Main Image */}
         <div className="relative z-20 -mb-12 md:-mb-16 h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96">
 
-          {details.photoUrl ? (
+          {pokemonDetail.photoUrl ? (
             <img
-              src={details.photoUrl}
-              alt={details.name}
+              src={pokemonDetail.photoUrl}
+              alt={pokemonDetail.name}
               loading="lazy"
               className="h-full w-full object-contain drop-shadow-2xl animate-fade-in"
             />
@@ -225,7 +177,7 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
                 <div>
                   <h3 className={`text-xl font-bold mb-4 ${textClass}`}>Abilities</h3>
                   <div className="flex flex-wrap gap-2">
-                    {details.abilities && details.abilities.map(a => (
+                    {pokemonDetail.abilities && pokemonDetail.abilities.map(a => (
                       <span
                         key={a.ability.name}
                         className={`px-4 py-2 rounded-xl text-sm font-medium capitalize border ${a.is_hidden ? 'bg-gray-100 text-gray-500 border-gray-200 border-dashed' : 'bg-white text-gray-800 border-gray-200 shadow-sm'}`}
@@ -243,7 +195,7 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
               <div>
                 <h3 className={`text-xl font-bold mb-6 ${textClass}`}>Base Stats</h3>
                 <div className="space-y-4">
-                  {details.stats && details.stats.map(stat => (
+                  {pokemonDetail.stats && pokemonDetail.stats.map(stat => (
                     <StatBar
                       key={stat.stat.name}
                       name={stat.stat.name}

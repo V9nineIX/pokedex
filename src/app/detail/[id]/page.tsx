@@ -16,33 +16,16 @@ interface DetailPageProps {
 export default function DetailPage({ params }: DetailPageProps) {
   const router = useRouter();
   const { id } = use(params);
-  const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const { fetchPokemonDetail } = usePokemonDetail();
+  const { fetchPokemonDetail, pokemonDetailState } = usePokemonDetail();
+  const { pokemonDetail, isLoadingPokemonDetail } = pokemonDetailState;
 
   useEffect(() => {
-    const getPokemonDetail = async (id: string) => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await fetchPokemonDetail(id);
-        setPokemon(data);
-      } catch (err) {
-        setError('Failed to load Pokemon details');
-        console.error('Error fetching Pokemon:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (id) {
-      getPokemonDetail(id);
-
+      fetchPokemonDetail(id);
     }
   }, [id]);
 
-  if (loading) {
+  if (isLoadingPokemonDetail) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-100">
         <div className="text-center">
@@ -53,11 +36,13 @@ export default function DetailPage({ params }: DetailPageProps) {
     );
   }
 
-  if (error || !pokemon) {
+
+  if (isLoadingPokemonDetail === false && pokemonDetail == undefined) {
+
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-100">
         <div className="text-center">
-          <p className="text-xl text-red-500">{error || 'Pokemon not found'}</p>
+          <p className="text-xl text-red-500">{'Pokemon not found'}</p>
           <button
             onClick={() => router.push('/')}
             className="mt-4 rounded-lg bg-blue-500 px-6 py-2 text-white hover:bg-blue-600"
@@ -70,12 +55,12 @@ export default function DetailPage({ params }: DetailPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className=" bg-gray-100 py-8">
       <div className="mx-auto max-w-4xl px-4">
 
         {/* Main Card */}
         <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
-          <PokemonDetailView pokemonDetail={pokemon} />
+          <PokemonDetailView pokemonDetail={pokemonDetail} />
         </div>
       </div>
     </div>

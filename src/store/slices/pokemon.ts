@@ -13,6 +13,8 @@ interface PokemonState {
   isFilterOpen: boolean;
   selectedTypes: string[];
   next: string | null;
+  pokemonDetail: PokemonDetail | null;
+  isLoadingPokemonDetail: boolean;
 }
 
 const initialState: PokemonState = {
@@ -27,6 +29,8 @@ const initialState: PokemonState = {
   selectedTypes: [],
   isFilterOpen: false,
   next: null,
+  pokemonDetail: null,
+  isLoadingPokemonDetail: true
 };
 
 const pokemonSlice = createSlice({
@@ -56,8 +60,17 @@ const pokemonSlice = createSlice({
       const { key, value } = action.payload;
       (state as any)[key] = value;
     },
+    setPokemonDetail: (
+      state,
+      action: PayloadAction<{ pokemonDetail: PokemonDetail }>
+    ) => {
+      const { pokemonDetail } = action.payload;
+      state.pokemonDetail = pokemonDetail;
+      state.isLoadingPokemonDetail = false;
+    },
   },
 });
 
-export const { setPokemonList, setPokemonField } = pokemonSlice.actions;
+export const { setPokemonList, setPokemonField, setPokemonDetail } =
+  pokemonSlice.actions;
 export default pokemonSlice.reducer;
