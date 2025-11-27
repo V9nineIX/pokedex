@@ -86,6 +86,22 @@ export interface PokemonDetailApiResponse {
   name: string;
   sprites: {
     front_default: string | null;
+    other?: {
+      "official-artwork"?: {
+        front_default: string | null;
+        front_shiny?: string | null;
+      };
+      home?: {
+        front_default: string | null;
+        front_shiny?: string | null;
+      };
+      dream_world?: {
+        front_default: string | null;
+      };
+      showdown?: {
+        front_default: string | null;
+      };
+    };
   };
   types: Array<PokemonType>;
   stats?: PokemonStat[];

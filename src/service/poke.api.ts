@@ -28,7 +28,9 @@ export const fetchPokemonList = async (
       return {
         id: response.id,
         name: response.name,
-        photoUrl: response.sprites.front_default,
+        photoUrl:
+          response.sprites.other?.["official-artwork"]?.front_default ??
+          response.sprites.front_default,
         types: response.types,
         stats: response.stats,
       };
