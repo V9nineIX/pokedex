@@ -10,7 +10,7 @@ interface PokemonListProps {
 
 
 const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (page: number) => void, pokemonState: any }) => {
-  const { pokemonList, isLoadingPokemonList, totalCount, currentPage } = pokemonState;
+  const { pokemonList, isLoadingPokemonList, totalCount, currentPage, isSearchActive, searchQuery } = pokemonState;
   const totalPages = Math.ceil(totalCount / LIMIT_PER_PAGE);
 
   return (
@@ -19,18 +19,30 @@ const PokemonList = ({ handlePageChange, pokemonState }: { handlePageChange: (pa
         <div>Loading...</div>
       ) : (
         <>
+          {isSearchActive && pokemonList.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <div className="text-2xl font-bold text-gray-600 mb-2">No Pokémon found</div>
+              <div className="text-gray-500">No results found for "{searchQuery}"</div>
+            </div>
+          ) : (
+            <>
+              <div className="text-bold font-bold text-md text-black w-full text-right pb-4">
+                {isSearchActive ? (
+                  <>{totalCount} pokemon found for "{searchQuery}"</>
+                ) : (
+                  <>page {currentPage} of {totalPages} | {totalCount} pokemon found</>
+                )}
+              </div>
 
-          <div className="text-bold font-bold text-md text-black w-full text-right pb-4">
-            page {currentPage} of {totalPages} | {totalCount} pokemon found
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-24">
-            {pokemonList && pokemonList.length > 0 && pokemonList.map((pokemon: any) => (
-              <PokemonCard key={pokemon.id} pokemon={pokemon} onClick={() => { }} />
-            ))}
-          </div>
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-24">
+                {pokemonList && pokemonList.length > 0 && pokemonList.map((pokemon: any) => (
+                  <PokemonCard key={pokemon.id} pokemon={pokemon} onClick={() => { }} />
+                ))}
+              </div>
+            </>
+          )}
           {/* pagination */}
-          {totalPages > 1 && (
+          {!isSearchActive && totalPages > 1 && (
             <>
 
               <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 text-black py-4 bg-gray-100 z-50 shadow-lg border-t border-gray-200">

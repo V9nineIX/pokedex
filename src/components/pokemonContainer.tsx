@@ -3,14 +3,23 @@ import { useState } from 'react';
 import PokemonList from "@/components/pokemonList";
 import TypeFilter from "@/components/header/typeFilter";
 import { Filter, X } from 'lucide-react';
-import usePokemon from '@/hooks/usePokemon';
 import { LIMIT_PER_PAGE } from '@/constant';
 
+interface PokemonContainerProps {
+  pokemonState: any;
+  handlePageChange: (page: number) => void;
+  handleTypeToggle: (type: string) => void;
+  handleClearFilters: () => void;
+  toggleFilterDrawer: () => void;
+}
 
-export default function PokemonContainer() {
-
-
-  const { pokemonState, handlePageChange, handleTypeToggle, handleClearFilters, toggleFilterDrawer } = usePokemon();
+export default function PokemonContainer({
+  pokemonState,
+  handlePageChange,
+  handleTypeToggle,
+  handleClearFilters,
+  toggleFilterDrawer,
+}: PokemonContainerProps) {
   const { pokemonList, isLoadingPokemonList, totalCount, currentPage, isFilterOpen, selectedTypes } = pokemonState;
 
 

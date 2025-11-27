@@ -141,6 +141,24 @@ export const fetchPokemonDetailsById = async (
   return response.json();
 };
 
+export const fetchPokemonByNameOrId = async (
+  nameOrId: string | number
+): Promise<PokemonDetailApiResponse | null> => {
+  try {
+    const response = await fetch(`${BASE_URL}/pokemon/${nameOrId}`);
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null; // Pokémon not found
+      }
+      throw new Error(`Failed to fetch Pokémon: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching Pokémon:", error);
+    return null;
+  }
+};
+
 export const fetchPokemonSpecies = async (
   id: number
 ): Promise<PokemonSpecies> => {

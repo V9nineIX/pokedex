@@ -7,6 +7,8 @@ interface PokemonState {
   currentPage: number;
   itemsPerPage: number;
   searchQuery: string;
+  searchTerm: string;
+  isSearchActive: boolean;
   totalCount: number;
   isFilterOpen: boolean;
   selectedTypes: string[];
@@ -19,6 +21,8 @@ const initialState: PokemonState = {
   currentPage: 1,
   itemsPerPage: 20,
   searchQuery: "",
+  searchTerm: "",
+  isSearchActive: false,
   totalCount: 0,
   selectedTypes: [],
   isFilterOpen: false,
