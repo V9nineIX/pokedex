@@ -14,16 +14,13 @@ const TypeFilter: React.FC<TypeFilterProps> = ({ selectedTypes, onToggleType, on
 
   return (
     <div
-      className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? ' opacity-100 py-6' : 'max-h-0 opacity-0 py-0'
+      className={`transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
         }`}
     >
-      <div className="w-full px-4 ">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-            Filter by Type
-            {/* <span className="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-              {selectedTypes.length > 0 ? 'Match All Selected (AND)' : 'Select types'}
-            </span> */}
+      <div className="w-full px-4 pb-6">
+        <div className="flex items-start flex-col md:flex-row  justify-left md:justify-between mb-4 gap-2">
+          <h3 className="text-sm md:text-lg font-bold text-gray-800 flex items-center gap-2">
+            Filter by type
           </h3>
           {selectedTypes.length > 0 && (
             <button
@@ -31,7 +28,7 @@ const TypeFilter: React.FC<TypeFilterProps> = ({ selectedTypes, onToggleType, on
               className="flex items-center gap-1 text-sm font-medium text-pokedex-red hover:text-red-700 transition-colors"
             >
               <X size={16} />
-              Clear Filters
+              Clear all
             </button>
           )}
         </div>
@@ -62,11 +59,7 @@ const TypeFilter: React.FC<TypeFilterProps> = ({ selectedTypes, onToggleType, on
           })}
         </div>
 
-        {selectedTypes.length > 1 && (
-          <p className="mt-4 text-xs text-center text-gray-400">
-            Finding Pokemon that are <span className="font-semibold">{selectedTypes.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(' + ')}</span>
-          </p>
-        )}
+
       </div>
     </div>
   );

@@ -49,12 +49,7 @@ const Header: React.FC<HeaderProps> = ({ searchTerm = '', onSearchChange = () =>
           </div>
         </div>
       </header>
-      {/* <TypeFilter
-        isOpen={true}
-        selectedTypes={selectedTypes}
-        onToggleType={handleTypeToggle}
-        onClear={handleClearFilters}
-      /> */}
+
     </>
   );
 };
