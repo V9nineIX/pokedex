@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PokemonList from "./components/pokemonList";
+import PokemonList from "@/components/pokemonList";
 
 export default function Home() {
   return (

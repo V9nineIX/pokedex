@@ -6,10 +6,12 @@ import {
   PokemonDetailApiResponse,
 } from "@/types";
 
-import { LIMIT_PER_PAGE } from "@/app/constant";
+import { LIMIT_PER_PAGE } from "@/constant";
 const BASE_URL = "https://pokeapi.co/api/v2";
 
-export const fetchPokemonList = async (page: number = 1): Promise<PokemonListResponse> => {
+export const fetchPokemonList = async (
+  page: number = 1
+): Promise<PokemonListResponse> => {
   const offset = (page - 1) * LIMIT_PER_PAGE;
   const pokemonList: PokemonListResponse = await fetchAllPokemon(offset);
   //TODO: get
@@ -38,7 +40,9 @@ export const fetchPokemonList = async (page: number = 1): Promise<PokemonListRes
   return pokemonList;
 };
 
-export const fetchAllPokemon = async (offset: number = 0): Promise<PokemonListResponse> => {
+export const fetchAllPokemon = async (
+  offset: number = 0
+): Promise<PokemonListResponse> => {
   // Fetch a large list to handle search client-side for better UX
   const response = await fetch(
     `${BASE_URL}/pokemon?limit=${LIMIT_PER_PAGE}&offset=${offset}`

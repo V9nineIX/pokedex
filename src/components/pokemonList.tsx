@@ -1,8 +1,8 @@
 'use client'
 import usePokemon from "@/hooks/usePokemon";
-import PokemonCard from "@/app/components/pokemonCard.tsx";
+import PokemonCard from "@/components/pokemonCard.tsx";
 import ReactPaginate from "react-paginate";
-import { LIMIT_PER_PAGE } from "@/app/constant";
+import { LIMIT_PER_PAGE } from "@/constant";
 
 const PokemonList = () => {
   const { pokemonState, handlePageChange } = usePokemon();

@@ -1,5 +1,5 @@
 import { fetchData, postData, patchData, putData, deleteData } from "./service";
-import { LIMIT_PER_PAGE } from "../app/constant";
+import { LIMIT_PER_PAGE } from "@/constant";
 import {
   Pokemon,
   PokemonListItem,
