@@ -70,13 +70,13 @@ You can add custom classes using the `className` prop:
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | - | Badge content (required) |
-| `variant` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'type'` | `'default'` | Badge color variant |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
-| `type` | `string` | - | Pokemon type name (used with `variant="type"`) |
-| `className` | `string` | `''` | Additional CSS classes |
+| Prop        | Type                                                                                    | Default     | Description                                    |
+| ----------- | --------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------- |
+| `children`  | `React.ReactNode`                                                                       | -           | Badge content (required)                       |
+| `variant`   | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'type'` | `'default'` | Badge color variant                            |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                                                  | `'md'`      | Badge size                                     |
+| `type`      | `string`                                                                                | -           | Pokemon type name (used with `variant="type"`) |
+| `className` | `string`                                                                                | `''`        | Additional CSS classes                         |
 
 ## Supported Pokemon Types
 
@@ -87,12 +87,13 @@ You can add custom classes using the `className` prop:
 ## Example in PokemonCard
 
 ```tsx
-import Badge from '../badge';
+import Badge from "../badge";
 
-{pokemon.types.map((type: string) => (
-  <Badge key={type} variant="type" type={type} size="sm">
-    {type}
-  </Badge>
-))}
+{
+  pokemon.types.map((type: string) => (
+    <Badge key={type} variant="type" type={type} size="sm">
+      {type}
+    </Badge>
+  ));
+}
 ```
-

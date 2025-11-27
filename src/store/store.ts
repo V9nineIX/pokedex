@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import AuthSlice from "./slices/auth";
-// import UserSlice from "./slices/user";
+
+import PokemonSlice from "./slices/pokemon";
 
 // REF: https://stackoverflow.com/questions/61704805/getting-an-error-a-non-serializable-value-was-detected-in-the-state-when-using
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    pokemon: PokemonSlice,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
