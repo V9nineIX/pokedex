@@ -7,8 +7,7 @@ import {
   EvolutionChainResponse,
 } from "@/types";
 
-import { LIMIT_PER_PAGE } from "@/constant";
-const BASE_URL = "https://pokeapi.co/api/v2";
+import { LIMIT_PER_PAGE, BASE_URL } from "@/constant";
 
 export const fetchPokemonListByTypes = async (
   types: string[],

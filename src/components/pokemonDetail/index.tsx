@@ -8,27 +8,24 @@ import { fetchPokemonDetails, fetchPokemonSpecies, fetchEvolutionChain, formatPo
 import { TYPE_COLORS, TEXT_COLORS } from '@/constant';
 import StatBar from './statBar';
 import { useRouter } from 'next/navigation';
+import EvolutionNode from './evolutionNode';
 
 
 interface PokemonDetailViewProps {
   pokemonDetail: PokemonDetail;
-  onClose?: () => void;
-  onSelectPokemon?: (pokemon: PokemonListResult) => void;
 }
 
 const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
   pokemonDetail,
-  onClose,
-  onSelectPokemon
 }) => {
   const router = useRouter();
 
 
 
-  if (!pokemonDetail) {
-    return (
-      null
-    )
+  if (!pokemonDetail) return null;
+
+  const onSelectPokemon = (id: string) => {
+    router.push(`/detail/${id}`);
   }
 
   const primaryType = pokemonDetail.types?.[0]?.type?.name || '';
@@ -43,55 +40,6 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
   )?.flavor_text.replace(/\f/g, ' ');
 
 
-  // --- Recursive Evolution Node Component ---
-  const EvolutionNode = ({ link }: { link: ChainLink }) => {
-    const id = getPokemonIdFromUrl(link.species.url);
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-    const isCurrent = pokemonDetail.id === id;
-
-    const handleNodeClick = () => {
-      if (onSelectPokemon && !isCurrent) {
-        onSelectPokemon({
-          name: link.species.name,
-          url: link.species.url
-        });
-      }
-    };
-
-    return (
-      <div className="flex flex-col md:flex-row items-center gap-4">
-        {/* Pokemon Node */}
-        <div
-          className={`flex flex-col items-center group cursor-pointer transition-all duration-300 ${isCurrent ? 'opacity-100 scale-105' : 'opacity-60 hover:opacity-100 hover:scale-105'}`}
-          onClick={handleNodeClick}
-        >
-          <div className={`relative h-24 w-24 md:h-28 md:w-28 rounded-full flex items-center justify-center shadow-sm border-2 ${isCurrent ? 'bg-white border-' + primaryType : 'bg-gray-50 border-gray-100'}`}>
-            <img src={imageUrl} alt={link.species.name} className="h-full w-full object-contain p-2" loading="lazy" />
-          </div>
-          <span className={`mt-2 text-sm font-bold capitalize ${isCurrent ? textClass : 'text-gray-500'}`}>
-            {link.species.name}
-          </span>
-          {link.evolution_details[0]?.min_level && (
-            <span className="text-xs text-gray-400 font-medium bg-gray-100 px-2 py-0.5 rounded-full mt-1">Lvl {link.evolution_details[0].min_level}</span>
-          )}
-        </div>
-
-        {/* Evolutions (Recursion) */}
-        {link.evolves_to.length > 0 && (
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <ArrowRight size={24} className="text-gray-300 hidden md:block" />
-            <div className="h-8 w-0.5 bg-gray-200 md:hidden"></div> {/* Vertical line for mobile */}
-
-            <div className="flex flex-col gap-8 md:gap-4">
-              {link.evolves_to.map((nextLink, index) => (
-                <EvolutionNode key={`${nextLink.species.name}-${index}`} link={nextLink} />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
 
 
   return (
@@ -110,7 +58,7 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
           </button>
           <div className="flex items-center gap-4">
             {/* Maybe a favorite heart here later */}
-            <span className="text-2xl font-bold opacity-90">#{formatPokemonId(pokemonDetail.id)}</span>
+            <span className="text-2xl font-bold opacity-90">#{pokemonDetail.id}</span>
           </div>
         </div>
 
@@ -213,7 +161,7 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
               <div className="pt-4 border-t border-gray-100">
                 <h3 className={`text-xl font-bold mb-8 text-center ${textClass}`}>Evolution Chain</h3>
                 <div className="flex justify-center overflow-x-auto py-4">
-                  <EvolutionNode link={evolutionChain.chain} />
+                  <EvolutionNode link={evolutionChain.chain} pokemonDetail={pokemonDetail} onSelectPokemon={onSelectPokemon} />
                 </div>
               </div>
             )}

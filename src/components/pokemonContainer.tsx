@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import PokemonList from "@/components/pokemonList";
+import PokemonList from "@/components/pokemonList/";
 import TypeFilter from "@/components/header/typeFilter";
 import { Filter, X } from 'lucide-react';
 import { LIMIT_PER_PAGE } from '@/constant';
